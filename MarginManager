@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract MarginManager {
+    uint256 public marginBox1;
+    uint256 public marginBox2;
+
+    
+    function setMargin(uint256 _marginBox1, uint256 _marginBox2) public {
+        assert(_marginBox1 > 0 && _marginBox2 > 0);
+
+
+        marginBox1 = _marginBox1;
+        marginBox2 = _marginBox2;
+
+        
+        if (_marginBox1 == _marginBox2) {
+            revert("Either of any two margin values is considered");
+        } else {
+           
+            require(_marginBox1 >_marginBox2 ,
+                "Margin of Box2 is overlapped with Margin of Box1");
+        }
+    }
+
+    function getMargins() public view returns (uint256, uint256) {
+        return (marginBox1, marginBox2);
+    }
+}
